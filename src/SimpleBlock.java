@@ -18,7 +18,7 @@ public class SimpleBlock {
                             block.setLz(box.lz * nz);
                             block.setAx(box.lx * nx);
                             block.setAy(box.ly * ny);
-                            block.setRequire(box.type,nx*ny*nz);
+                            block.setRequire(box.type, nx * ny * nz);
                             block.setLevel(0);
                             blockTable.add(block);
                         }

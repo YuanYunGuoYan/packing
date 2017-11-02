@@ -22,10 +22,10 @@ public class Test {
         boxList.add(box2);
         boxList.add(box3);
         int[] num = new int[4];
-        num[0] = 6;
-        num[1] = 4;
-        num[2] = 8;
-        num[3] = 2;
+        num[0] = 3;
+        num[1] = 3;
+        num[2] = 3;
+        num[3] = 3;
         Container container = new Container();
         container.setContainer(10.00, 10.00, 10.00);
         SimpleBlock simpleBlock = new SimpleBlock();
@@ -33,19 +33,19 @@ public class Test {
         System.out.println("所有简单块：");
         print(blockTable);
 
-//        ComplexBlock complexBlock = new ComplexBlock();
-//        List<Block> blockTable1 = complexBlock.genComplexBlock(container, boxList, num);
-//        System.out.println("所有复杂块：");
-//        print(blockTable1);
+        ComplexBlock complexBlock = new ComplexBlock();
+        List<Block> blockTable1 = complexBlock.genComplexBlock(container, boxList, num);
+        System.out.println("所有复杂块：");
+        print(blockTable1);
     }
 
     public static void print(List<Block> blockTable) {
         for (Block block : blockTable) {
             System.out.println("长：" + block.getLx() + "," + "宽：" + block.getLy() + "," + "高："
                     + block.getLz() + "----体积:" + block.volume());
-            HashMap<Integer,Integer> map=block.getRequire();
+            HashMap<Integer, Integer> map = block.getRequire();
             for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-                System.out.println("箱子类型："+entry.getKey()+" 数量："+entry.getValue());
+                System.out.println("箱子类型：" + entry.getKey() + " 数量：" + entry.getValue());
             }
 //            System.out.println(block.getAx() + " " + block.getAy());
             System.out.println("***********");

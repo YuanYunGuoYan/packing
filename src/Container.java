@@ -16,6 +16,7 @@ public class Container {
     public double volume() {
         return this.lx * this.ly * this.lz;
     }
+
     public double getLx() {
         return lx;
     }

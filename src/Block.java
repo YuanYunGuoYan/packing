@@ -7,7 +7,7 @@ public class Block {
     double lx;
     double ly;
     double lz;
-    HashMap<Integer,Integer> require = new HashMap<>();
+    HashMap<Integer, Integer> require = new HashMap<>();
     int level;
     double ax;
     double ay;
@@ -16,8 +16,12 @@ public class Block {
         return require;
     }
 
-    public void setRequire(Integer type,Integer num) {
-        this.require.put(type,num);
+    public void setRequire(Integer type, Integer num) {
+        this.require.put(type, num);
+    }
+
+    public void setRequire(HashMap<Integer, Integer> map) {
+        this.require = map;
     }
 
     public double getAx() {
@@ -43,7 +47,6 @@ public class Block {
     public void setLevel(int level) {
         this.level = level;
     }
-
 
     public double volume() {
         return this.lx * this.ly * this.lz;
