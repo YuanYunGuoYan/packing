@@ -23,7 +23,7 @@ public class ComplexBlock {
                     if (a.level == level || b.level == level) {
                         HashMap<Integer, Integer> map1 = a.getRequire();
                         HashMap<Integer, Integer> map2 = b.getRequire();
-                        //X轴方向
+                        //X轴方向复合
                         if (a.ax == a.lx && b.ax == b.lx && a.lz == b.lz) {
                             Block c1 = new Block();
                             c1.lx = a.lx + b.lx;
@@ -36,7 +36,7 @@ public class ComplexBlock {
                             if (isComplexBlock(container, c1, a, b))
                                 newBlockTable.add(c1);
                         }
-                        //Y轴方向
+                        //Y轴方向复合
                         if (a.ay == a.ly && b.ay == b.ly && a.lz == b.lz) {
                             Block c2 = new Block();
                             c2.lx = Math.max(a.lx, b.lx);
@@ -49,7 +49,7 @@ public class ComplexBlock {
                             if (isComplexBlock(container, c2, a, b))
                                 newBlockTable.add(c2);
                         }
-                        //Z轴方向
+                        //Z轴方向复合
                         if (a.ax >= b.lx && a.ay >= b.ly) {
                             Block c3 = new Block();
                             c3.lx = Math.max(a.lx, b.ly);
@@ -101,7 +101,6 @@ public class ComplexBlock {
     }
 
     //去除重复块
-
     public static void removeDuplicateBlock(List<Block> list) {
         for (int i = 0; i < list.size() - 1; i++) {   //从左向右循环
             for (int j = list.size() - 1; j > i; j--) {  //从右往左内循环

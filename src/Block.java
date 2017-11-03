@@ -7,10 +7,10 @@ public class Block {
     double lx;
     double ly;
     double lz;
-    HashMap<Integer, Integer> require = new HashMap<>();
-    int level;
-    double ax;
-    double ay;
+    HashMap<Integer, Integer> require = new HashMap<>();          //箱子需求
+    int level;                                                    //复杂度
+    double ax;                                                    //可行放置矩形的长
+    double ay;                                                    //可行放置矩形的宽
 
     public HashMap<Integer, Integer> getRequire() {
         return require;
