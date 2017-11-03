@@ -2,14 +2,10 @@
  * Created by Administrator on 2017/11/01.
  */
 public class Box {
-    double lx;
-    double ly;
-    double lz;
-    int type;
-
-    public void Box() {
-
-    }
+    double lx;          //箱子的X维度的长度
+    double ly;          //箱子的Y维度的长度
+    double lz;          //箱子的Z维度的长度
+    int type;           //箱子的类型
 
     public Box setBox(double lx, double ly, double lz, int type) {
         this.lx = lx;

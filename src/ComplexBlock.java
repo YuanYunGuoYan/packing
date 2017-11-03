@@ -4,76 +4,95 @@ import java.util.*;
  * Created by Administrator on 2017/11/02.
  */
 public class ComplexBlock {
-    final static int MaxLevel = 5;
-    final static double MinFillRate = 0.98;
-    final static double MinAreaRate = 0.96;
-    final static int MaxBlocks = 10000;
+    final static int MaxLevel = 5;                  //块的最大复杂度为MaxLevel
+    final static double MinFillRate = 0.98;         //复合块的填充率至少达到MinFillRate
+    final static double MinAreaRate = 0.96;         //可行放置矩形与相应的复合块顶部面积的比至少达到MinAreaRate
+    final static int MaxBlocks = 10000;             //生成块数目最大为MaxBlocks
+
+    /**
+     * 定义复合块的复合度(level)如下：
+     * 简单块level为0，其它复合块的level为其子块的level的最大值加1
+     * 比如两个level2的块合成为level3的复合块
+     * @param container
+     * @param boxList
+     * @param num
+     * @return blockTable
+     */
 
     public List<Block> genComplexBlock(Container container, List<Box> boxList, int[] num) {
         List<Block> blockTable = new ArrayList<>();
         blockTable = new SimpleBlock().genSimpleBlock(container, boxList, num);
-        for (int level = 0; level <= MaxLevel - 1; level++) {
-            List<Block> newBlockTable = new ArrayList<>();
-            for (Block a : blockTable) {
-                if (blockTable.size() >= MaxBlocks)
-                    break;
-                for (Block b : blockTable) {
-                    if (b.equals(a))
-                        continue;
-                    if (a.level == level || b.level == level) {
-                        HashMap<Integer, Integer> map1 = a.getRequire();
-                        HashMap<Integer, Integer> map2 = b.getRequire();
-                        //X轴方向复合
-                        if (a.ax == a.lx && b.ax == b.lx && a.lz == b.lz) {
-                            Block c1 = new Block();
-                            c1.lx = a.lx + b.lx;
-                            c1.ly = Math.max(a.ly, b.ly);
-                            c1.lz = Math.max(a.lz, b.lz);
-                            c1.ax = a.ax + b.ax;
-                            c1.ay = Math.min(a.ay, b.ay);
-                            c1.setRequire(addRequire(boxList, map1, map2));
-                            c1.level = Math.max(a.level, b.level) + 1;
-                            if (isComplexBlock(container, c1, a, b))
-                                newBlockTable.add(c1);
-                        }
-                        //Y轴方向复合
-                        if (a.ay == a.ly && b.ay == b.ly && a.lz == b.lz) {
-                            Block c2 = new Block();
-                            c2.lx = Math.max(a.lx, b.lx);
-                            c2.ly = a.ly + b.ly;
-                            c2.lz = Math.max(a.lz, b.lz);
-                            c2.ax = Math.min(a.ax, b.ax);
-                            c2.ay = a.ay + b.ay;
-                            c2.setRequire(addRequire(boxList, map1, map2));
-                            c2.level = Math.max(a.level, b.level) + 1;
-                            if (isComplexBlock(container, c2, a, b))
-                                newBlockTable.add(c2);
-                        }
-                        //Z轴方向复合
-                        if (a.ax >= b.lx && a.ay >= b.ly) {
-                            Block c3 = new Block();
-                            c3.lx = Math.max(a.lx, b.ly);
-                            c3.ly = Math.max(a.ly, b.ly);
-                            c3.lz = a.lz + b.lz;
-                            c3.ax = b.ax;
-                            c3.ay = b.ay;
-                            c3.setRequire(addRequire(boxList, map1, map2));
-                            c3.level = Math.max(a.level, b.level) + 1;
-                            if (isComplexBlock(container, c3, a, b))
-                                newBlockTable.add(c3);
+        while (true) {
+            for (int level = 0; level <= MaxLevel - 1; level++) {
+                List<Block> newBlockTable = new ArrayList<>();
+                for(int i=0;i< blockTable.size()-1;i++)
+                {
+                    for(int j=i+1;j< blockTable.size();j++)
+                    {
+                        Block a=blockTable.get(i);
+                        Block b=blockTable.get(j);
+                        if (a.level == level || b.level == level) {
+                            HashMap<Integer, Integer> map1 = a.getRequire();
+                            HashMap<Integer, Integer> map2 = b.getRequire();
+                            //X轴方向复合
+                            if (a.ax == a.lx && b.ax == b.lx && a.lz == b.lz) {
+                                Block c1 = new Block();
+                                c1.lx = a.lx + b.lx;
+                                c1.ax = a.ax + b.ax;
+
+                                c1.ly = Math.max(a.ly, b.ly);
+                                c1.ay = Math.min(a.ay, b.ay);
+
+
+                                c1.lz = Math.max(a.lz, b.lz);
+
+                                c1.setRequire(addRequire(boxList, map1, map2));
+                                c1.level = Math.max(a.level, b.level) + 1;
+                                if (isComplexBlock(container, c1, a, b))
+                                    newBlockTable.add(c1);
+                            }
+                            //Y轴方向复合
+                            if (a.ay == a.ly && b.ay == b.ly && a.lz == b.lz) {
+                                Block c2 = new Block();
+                                c2.lx = Math.max(a.lx, b.lx);
+                                c2.ly = a.ly + b.ly;
+                                c2.lz = Math.max(a.lz, b.lz);
+                                c2.ax = Math.min(a.ax, b.ax);
+                                c2.ay = a.ay + b.ay;
+                                c2.setRequire(addRequire(boxList, map1, map2));
+                                c2.level = Math.max(a.level, b.level) + 1;
+                                if (isComplexBlock(container, c2, a, b))
+                                    newBlockTable.add(c2);
+                            }
+                            //Z轴方向复合
+                            if (a.ax >= b.lx && a.ay >= b.ly) {
+                                Block c3 = new Block();
+                                c3.lx = Math.max(a.lx, b.ly);
+                                c3.ly = Math.max(a.ly, b.ly);
+                                c3.lz = a.lz + b.lz;
+                                c3.ax = b.ax;
+                                c3.ay = b.ay;
+                                c3.setRequire(addRequire(boxList, map1, map2));
+                                c3.level = Math.max(a.level, b.level) + 1;
+                                if (isComplexBlock(container, c3, a, b))
+                                    newBlockTable.add(c3);
+                            }
                         }
                     }
                 }
-            }
 
-            blockTable.addAll(newBlockTable);
-            removeDuplicateBlock(blockTable);
+                blockTable.addAll(newBlockTable);
+                removeDuplicateBlock(blockTable);
+            }
+            if (blockTable.size() >= MaxBlocks)
+                break;
         }
         //按体积降序排列
         Collections.sort(blockTable, new SortByVolume());
         return blockTable;
     }
 
+    //复合块的箱子需求
     public static HashMap<Integer, Integer> addRequire(List<Box> boxList, HashMap<Integer, Integer> map1, HashMap<Integer, Integer> map2) {
         HashMap<Integer, Integer> map3 = new HashMap<>();
         for (Box box : boxList) {
@@ -127,7 +146,7 @@ public class ComplexBlock {
         //空隙不能过大
         if (areaRate < MinAreaRate)
             return false;
-        //复杂度最大为5
+        //复杂度最大为MaxLevel
         if (c.level > MaxLevel)
             return false;
 

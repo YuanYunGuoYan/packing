@@ -5,6 +5,13 @@ import java.util.*;
  */
 public class SimpleBlock {
 
+    /**
+     * 枚举所有合法的组合(nx,ny,nz)，并将其对应的简单块block加入块表blockTable
+     * @param container
+     * @param boxList
+     * @param num
+     * @return blockTable
+     */
     public List<Block> genSimpleBlock(Container container, List<Box> boxList, int[] num) {
         List<Block> blockTable = new ArrayList<>();
         for (Box box : boxList) {
@@ -18,7 +25,9 @@ public class SimpleBlock {
                             block.setLz(box.lz * nz);
                             block.setAx(box.lx * nx);
                             block.setAy(box.ly * ny);
+                            //设置block所需箱子类型，及其数量
                             block.setRequire(box.type, nx * ny * nz);
+                            //简单块的复杂度为0
                             block.setLevel(0);
                             blockTable.add(block);
                         }
@@ -26,6 +35,7 @@ public class SimpleBlock {
                 }
             }
         }
+        //按体积降序排列
         Collections.sort(blockTable, new SortByVolume());
 
         return blockTable;

@@ -4,10 +4,10 @@ import java.util.HashMap;
  * Created by Administrator on 2017/11/02.
  */
 public class Block {
-    double lx;
-    double ly;
-    double lz;
-    HashMap<Integer, Integer> require = new HashMap<>();          //箱子需求
+    double lx;                                                    //块的X维度的长度
+    double ly;                                                    //块的Y维度的长度
+    double lz;                                                    //块的Z维度的长度
+    HashMap<Integer, Integer> require = new HashMap<>();          //箱子需求,map<k,v> k:box.type  v:num[box.type]
     int level;                                                    //复杂度
     double ax;                                                    //可行放置矩形的长
     double ay;                                                    //可行放置矩形的宽
@@ -50,7 +50,7 @@ public class Block {
 
     public double volume() {
         return this.lx * this.ly * this.lz;
-    }
+    }     //块的体积
 
     public double getLx() {
         return lx;
