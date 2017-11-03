@@ -35,6 +35,7 @@ public class ComplexBlock {
                             HashMap<Integer, Integer> map1 = a.getRequire();
                             HashMap<Integer, Integer> map2 = b.getRequire();
                             //X轴方向复合
+
                             if (a.ax == a.lx && b.ax == b.lx && a.lz == b.lz) {
                                 Block c1 = new Block();
                                 c1.lx = a.lx + b.lx;
@@ -43,11 +44,12 @@ public class ComplexBlock {
                                 c1.ly = Math.max(a.ly, b.ly);
                                 c1.ay = Math.min(a.ay, b.ay);
 
-
                                 c1.lz = Math.max(a.lz, b.lz);
 
                                 c1.setRequire(addRequire(boxList, map1, map2));
+                                //设置复合块的复杂度
                                 c1.level = Math.max(a.level, b.level) + 1;
+                                //判断是否满足复合块限制条件，满足则加入新块表
                                 if (isComplexBlock(container, c1, a, b))
                                     newBlockTable.add(c1);
                             }
@@ -55,10 +57,13 @@ public class ComplexBlock {
                             if (a.ay == a.ly && b.ay == b.ly && a.lz == b.lz) {
                                 Block c2 = new Block();
                                 c2.lx = Math.max(a.lx, b.lx);
-                                c2.ly = a.ly + b.ly;
-                                c2.lz = Math.max(a.lz, b.lz);
                                 c2.ax = Math.min(a.ax, b.ax);
+
+                                c2.ly = a.ly + b.ly;
                                 c2.ay = a.ay + b.ay;
+
+                                c2.lz = Math.max(a.lz, b.lz);
+
                                 c2.setRequire(addRequire(boxList, map1, map2));
                                 c2.level = Math.max(a.level, b.level) + 1;
                                 if (isComplexBlock(container, c2, a, b))
@@ -68,10 +73,13 @@ public class ComplexBlock {
                             if (a.ax >= b.lx && a.ay >= b.ly) {
                                 Block c3 = new Block();
                                 c3.lx = Math.max(a.lx, b.ly);
-                                c3.ly = Math.max(a.ly, b.ly);
-                                c3.lz = a.lz + b.lz;
                                 c3.ax = b.ax;
+
+                                c3.ly = Math.max(a.ly, b.ly);
                                 c3.ay = b.ay;
+
+                                c3.lz = a.lz + b.lz;
+
                                 c3.setRequire(addRequire(boxList, map1, map2));
                                 c3.level = Math.max(a.level, b.level) + 1;
                                 if (isComplexBlock(container, c3, a, b))
@@ -80,7 +88,6 @@ public class ComplexBlock {
                         }
                     }
                 }
-
                 blockTable.addAll(newBlockTable);
                 removeDuplicateBlock(blockTable);
             }
