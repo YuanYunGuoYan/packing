@@ -15,6 +15,10 @@ public class Box {
         return this;
     }
 
+    public double volume() {
+        return this.lx * this.ly * this.lz;
+    }
+
     public int getType() {
         return type;
     }

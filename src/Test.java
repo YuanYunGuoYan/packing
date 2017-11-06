@@ -16,11 +16,11 @@ public class Test {
 
         //自定义箱子
         Box box1 = new Box();
-        box1.setBox(3.00, 2.00, 1.00, 0);
+        box1.setBox(1.8, 1.1, 1.5, 0);
         Box box2 = new Box();
-        box2.setBox(1.00, 2.00, 3.00, 1);
+        box2.setBox(2.0, 2.5, 3.0, 1);
         Box box3 = new Box();
-        box3.setBox(1.00, 3.00, 2.00, 2);
+        box3.setBox(1.0, 2.0, 3.0, 2);
 //        Box box4 = new Box();
 //        box4.setBox(5.00, 3.00, 2.00, 3);
         boxList.add(box1);
@@ -29,14 +29,14 @@ public class Test {
 
         //每个箱子类型对应的数量
         int[] num = new int[3];
-        num[0] = 8;
-        num[1] = 6;
-        num[2] = 10;
+        num[0] = 1000;
+        num[1] = 2000;
+        num[2] = 3000;
 //        num[3] = 3;
 
         //自定义容器大小
         Container container = new Container();
-        container.setContainer(10.00, 10.00, 10.00);
+        container.setContainer(200.0, 200.0, 200.0);
 
         //生成简单块
         SimpleBlock simpleBlock = new SimpleBlock();
@@ -53,9 +53,10 @@ public class Test {
     }
 
     public static void print(List<Block> blockTable) {
+        java.text.DecimalFormat   df   =new   java.text.DecimalFormat("#.00");
         for (Block block : blockTable) {
             System.out.println("长：" + block.getLx() + "," + "宽：" + block.getLy() + "," + "高："
-                    + block.getLz() + "----体积:" + block.volume());
+                    + block.getLz() + "----体积:" + df.format(block.volume()));
             HashMap<Integer, Integer> map = block.getRequire();
             for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
                 System.out.println("箱子类型：" + entry.getKey() + " 数量：" + entry.getValue());

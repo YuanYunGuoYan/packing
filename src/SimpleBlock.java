@@ -7,6 +7,7 @@ public class SimpleBlock {
 
     /**
      * 枚举所有合法的组合(nx,ny,nz)，并将其对应的简单块block加入块表blockTable
+     *
      * @param container
      * @param boxList
      * @param num
