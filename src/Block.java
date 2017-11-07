@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -78,13 +79,14 @@ public class Block {
     }
 
     //复杂块实际体积，即所有箱子的体积之和
-    public double complexBlockRealVolume() {
+    public double complexBlockRealVolume(List<Box> boxList) {
         HashMap<Integer, Integer> map = this.getRequire();
         double v = 0.0;
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            Box box = new Box();
-            box.type = entry.getKey();
-            v += box.volume() * entry.getValue();
+            for (Box b : boxList) {
+                if (b.type == entry.getKey())
+                    v += b.volume() * entry.getValue();
+            }
         }
         return v;
     }

@@ -16,7 +16,7 @@ public class Test {
 
         //自定义箱子
         Box box1 = new Box();
-        box1.setBox(1.8, 1.1, 1.5, 0);
+        box1.setBox(2.0, 3.5, 3.0, 0);
         Box box2 = new Box();
         box2.setBox(2.0, 2.5, 3.0, 1);
         Box box3 = new Box();
@@ -29,14 +29,14 @@ public class Test {
 
         //每个箱子类型对应的数量
         int[] num = new int[3];
-        num[0] = 1000;
-        num[1] = 2000;
-        num[2] = 3000;
+        num[0] = 10;
+        num[1] = 20;
+        num[2] = 30;
 //        num[3] = 3;
 
         //自定义容器大小
         Container container = new Container();
-        container.setContainer(200.0, 200.0, 200.0);
+        container.setContainer(50.0, 50.0, 50.0);
 
         //生成简单块
         SimpleBlock simpleBlock = new SimpleBlock();
@@ -49,11 +49,13 @@ public class Test {
         List<Block> blockTable1 = complexBlock.genComplexBlock(container, boxList, num);
         System.out.println("所有复杂块：");
         print(blockTable1);
+
+        System.out.println("简单块总数量：" + blockTable.size());
         System.out.println("复杂块总数量：" + blockTable1.size());
     }
 
     public static void print(List<Block> blockTable) {
-        java.text.DecimalFormat   df   =new   java.text.DecimalFormat("#.00");
+        java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
         for (Block block : blockTable) {
             System.out.println("长：" + block.getLx() + "," + "宽：" + block.getLy() + "," + "高："
                     + block.getLz() + "----体积:" + df.format(block.volume()));

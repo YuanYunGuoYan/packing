@@ -17,25 +17,21 @@ public class ComplexBlock {
      * @param container
      * @param boxList
      * @param num
-     * @return blockTable
+     * @return blockTable  生成的复合块块表
      */
 
     public List<Block> genComplexBlock(Container container, List<Box> boxList, int[] num) {
         List<Block> blockTable = new ArrayList<>();
         blockTable = new SimpleBlock().genSimpleBlock(container, boxList, num);
-        loop:
+
         for (int level = 0; level <= MaxLevel - 1; level++) {
             List<Block> newBlockTable = new ArrayList<>();
             for (int i = 0; i < blockTable.size() - 1; i++) {
                 for (int j = i + 1; j < blockTable.size(); j++) {
                     Block a = blockTable.get(i);
                     Block b = blockTable.get(j);
+
                     if (a.level == level || b.level == level) {
-
-                        //块数目达到MaxBlocks时停止生成
-                        if (blockTable.size() >= MaxBlocks)
-                            break loop;
-
                         HashMap<Integer, Integer> map1 = a.getRequire();
                         HashMap<Integer, Integer> map2 = b.getRequire();
 
@@ -50,7 +46,7 @@ public class ComplexBlock {
                                 c1.lz = a.lz;
                                 c1.setRequire(addRequire(boxList, map1, map2));
                                 c1.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c1, a, b))
+                                if (isComplexBlock(container, c1, a, b, boxList))
                                     newBlockTable.add(c1);
                             }
                             if (b.ax == b.lz) {
@@ -62,7 +58,7 @@ public class ComplexBlock {
                                 c2.lz = a.lz;
                                 c2.setRequire(addRequire(boxList, map1, map2));
                                 c2.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c2, a, b))
+                                if (isComplexBlock(container, c2, a, b, boxList))
                                     newBlockTable.add(c2);
                             }
                         }
@@ -76,7 +72,7 @@ public class ComplexBlock {
                                 c3.lz = a.lz;
                                 c3.setRequire(addRequire(boxList, map1, map2));
                                 c3.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c3, a, b))
+                                if (isComplexBlock(container, c3, a, b, boxList))
                                     newBlockTable.add(c3);
                             }
                             if (b.ax == b.lz) {
@@ -88,7 +84,7 @@ public class ComplexBlock {
                                 c4.lz = a.lz;
                                 c4.setRequire(addRequire(boxList, map1, map2));
                                 c4.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c4, a, b))
+                                if (isComplexBlock(container, c4, a, b, boxList))
                                     newBlockTable.add(c4);
                             }
                         }
@@ -102,7 +98,7 @@ public class ComplexBlock {
                                 c5.lz = a.lz;
                                 c5.setRequire(addRequire(boxList, map1, map2));
                                 c5.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c5, a, b))
+                                if (isComplexBlock(container, c5, a, b, boxList))
                                     newBlockTable.add(c5);
                             }
                             if (b.ax == b.ly) {
@@ -114,7 +110,7 @@ public class ComplexBlock {
                                 c6.lz = a.lz;
                                 c6.setRequire(addRequire(boxList, map1, map2));
                                 c6.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c6, a, b))
+                                if (isComplexBlock(container, c6, a, b, boxList))
                                     newBlockTable.add(c6);
                             }
                         }
@@ -130,7 +126,7 @@ public class ComplexBlock {
                                 c7.lz = a.lz;
                                 c7.setRequire(addRequire(boxList, map1, map2));
                                 c7.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c7, a, b))
+                                if (isComplexBlock(container, c7, a, b, boxList))
                                     newBlockTable.add(c7);
                             }
                             if (b.ay == b.lz) {
@@ -142,7 +138,7 @@ public class ComplexBlock {
                                 c8.lz = a.lz;
                                 c8.setRequire(addRequire(boxList, map1, map2));
                                 c8.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c8, a, b))
+                                if (isComplexBlock(container, c8, a, b, boxList))
                                     newBlockTable.add(c8);
                             }
                         }
@@ -156,7 +152,7 @@ public class ComplexBlock {
                                 c9.lz = a.lz;
                                 c9.setRequire(addRequire(boxList, map1, map2));
                                 c9.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c9, a, b))
+                                if (isComplexBlock(container, c9, a, b, boxList))
                                     newBlockTable.add(c9);
                             }
                             if (b.ay == b.lz) {
@@ -168,7 +164,7 @@ public class ComplexBlock {
                                 c10.lz = a.lz;
                                 c10.setRequire(addRequire(boxList, map1, map2));
                                 c10.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c10, a, b))
+                                if (isComplexBlock(container, c10, a, b, boxList))
                                     newBlockTable.add(c10);
                             }
                         }
@@ -182,7 +178,7 @@ public class ComplexBlock {
                                 c11.lz = a.lz;
                                 c11.setRequire(addRequire(boxList, map1, map2));
                                 c11.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c11, a, b))
+                                if (isComplexBlock(container, c11, a, b, boxList))
                                     newBlockTable.add(c11);
                             }
                             if (b.ay == b.ly) {
@@ -194,8 +190,9 @@ public class ComplexBlock {
                                 c12.lz = a.lz;
                                 c12.setRequire(addRequire(boxList, map1, map2));
                                 c12.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c12, a, b))
+                                if (isComplexBlock(container, c12, a, b, boxList))
                                     newBlockTable.add(c12);
+
                             }
                         }
 
@@ -210,7 +207,7 @@ public class ComplexBlock {
                                 c13.lz = a.lz + b.lz;
                                 c13.setRequire(addRequire(boxList, map1, map2));
                                 c13.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c13, a, b))
+                                if (isComplexBlock(container, c13, a, b, boxList))
                                     newBlockTable.add(c13);
                             }
                             if (a.ay >= b.lz) {
@@ -222,7 +219,7 @@ public class ComplexBlock {
                                 c14.lz = a.lz + b.ly;
                                 c14.setRequire(addRequire(boxList, map1, map2));
                                 c14.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c14, a, b))
+                                if (isComplexBlock(container, c14, a, b, boxList))
                                     newBlockTable.add(c14);
                             }
                         }
@@ -236,7 +233,7 @@ public class ComplexBlock {
                                 c15.lz = a.lz + b.lz;
                                 c15.setRequire(addRequire(boxList, map1, map2));
                                 c15.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c15, a, b))
+                                if (isComplexBlock(container, c15, a, b, boxList))
                                     newBlockTable.add(c15);
                             }
                             if (a.ay >= b.lz) {
@@ -248,7 +245,7 @@ public class ComplexBlock {
                                 c16.lz = a.lz + b.lx;
                                 c16.setRequire(addRequire(boxList, map1, map2));
                                 c16.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c16, a, b))
+                                if (isComplexBlock(container, c16, a, b, boxList))
                                     newBlockTable.add(c16);
                             }
                         }
@@ -262,7 +259,7 @@ public class ComplexBlock {
                                 c17.lz = a.lz + b.ly;
                                 c17.setRequire(addRequire(boxList, map1, map2));
                                 c17.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c17, a, b))
+                                if (isComplexBlock(container, c17, a, b, boxList))
                                     newBlockTable.add(c17);
                             }
                             if (a.ay >= b.ly) {
@@ -274,16 +271,34 @@ public class ComplexBlock {
                                 c18.lz = a.lz + b.lx;
                                 c18.setRequire(addRequire(boxList, map1, map2));
                                 c18.level = Math.max(a.level, b.level) + 1;
-                                if (isComplexBlock(container, c18, a, b))
+                                if (isComplexBlock(container, c18, a, b, boxList))
                                     newBlockTable.add(c18);
                             }
                         }
-
                     }
                 }
             }
-            blockTable.addAll(newBlockTable);
-            removeDuplicateBlock(blockTable);
+
+            //块数目达到MaxBlocks时停止生成
+            int size = blockTable.size() + newBlockTable.size();
+            if (size < MaxBlocks) {
+                blockTable.addAll(newBlockTable);
+                removeDuplicateBlock(blockTable);
+            } else {
+                List<Block> same = findDuplicateBlock(blockTable, newBlockTable);
+                newBlockTable.removeAll(same);
+                Collections.sort(newBlockTable, new SortByVolume());
+                int remain = MaxBlocks - blockTable.size();
+                if (remain <= newBlockTable.size()) {
+                    for (int i = 0; i < remain; i++) {
+                        blockTable.add(newBlockTable.get(i));
+                    }
+                    break;
+                } else {
+                    blockTable.addAll(newBlockTable);
+                }
+            }
+
         }
         //按体积降序排列
         Collections.sort(blockTable, new SortByVolume());
@@ -317,37 +332,75 @@ public class ComplexBlock {
         return true;
     }
 
+    //找到重复块
+    public static List<Block> findDuplicateBlock(List<Block> list1, List<Block> list2) {
+        List<Block> same = new ArrayList<>();
+        for (int i = 0; i < list1.size() - 1; i++) {
+            for (int j = 0; j < list2.size() - 1; j++) {
+                Block b1 = list1.get(i);
+                Block b2 = list2.get(j);
+                if (compareMap(b1.getRequire(), b2.getRequire())) {
+                    if (b1.lx == b2.lx && b1.ly == b2.ly && b1.lz == b2.lz && b1.ax == b2.ax && b1.ay == b2.ay)
+                        same.add(b2);                 //生成一个包含相同元素的list
+                }
+            }
+        }
+        return same;
+    }
+
     //去除重复块
-    private static void removeDuplicateBlock(List<Block> list) {
+    public static void removeDuplicateBlock(List<Block> list) {
         for (int i = 0; i < list.size() - 1; i++) {   //从左向右循环
             for (int j = list.size() - 1; j > i; j--) {  //从右往左内循环
                 Block b1 = list.get(i);
                 Block b2 = list.get(j);
                 if (compareMap(b1.getRequire(), b2.getRequire())) {
-                    double[] arr1 = new double[3];
-                    double[] arr2 = new double[3];
-                    arr1[0] = b1.lx;
-                    arr1[1] = b1.ly;
-                    arr1[2] = b1.lz;
-                    arr2[0] = b2.lx;
-                    arr2[1] = b2.ly;
-                    arr2[2] = b2.lz;
-                    Arrays.sort(arr1);
-                    Arrays.sort(arr2);
-                    if (Arrays.equals(arr1, arr2)) {
-                        if (b1.ax == b2.ax && b1.ay == b2.ay)
-                            list.remove(j);
-                        if (b1.ax == b2.ay && b1.ay == b2.ax)
-                            list.remove(j);
-                    }
+                    if (b1.lx == b2.lx && b1.ly == b2.ly && b1.lz == b2.lz && b1.ax == b2.ax && b1.ay == b2.ay)
+                        list.remove(j);                 //相等则移除
                 }
             }
         }
     }
 
-    //判断复合块是否满足生成条件
-    private static boolean isComplexBlock(Container container, Block c, Block a, Block b) {
-        double fillRate = (a.complexBlockRealVolume() + b.complexBlockRealVolume()) / c.volume();
+//    //去除重复块
+//    private static void removeDuplicateBlock(List<Block> list) {
+//        for (int i = 0; i < list.size() - 1; i++) {   //从左向右循环
+//            for (int j = list.size() - 1; j > i; j--) {  //从右往左内循环
+//                Block b1 = list.get(i);
+//                Block b2 = list.get(j);
+//                if (compareMap(b1.getRequire(), b2.getRequire())) {
+//                    double[] arr1 = new double[3];
+//                    double[] arr2 = new double[3];
+//                    arr1[0] = b1.lx;
+//                    arr1[1] = b1.ly;
+//                    arr1[2] = b1.lz;
+//                    arr2[0] = b2.lx;
+//                    arr2[1] = b2.ly;
+//                    arr2[2] = b2.lz;
+//                    Arrays.sort(arr1);
+//                    Arrays.sort(arr2);
+//                    if (Arrays.equals(arr1, arr2)) {
+//                        if (b1.ax == b2.ax && b1.ay == b2.ay)
+//                            list.remove(j);
+//                        if (b1.ax == b2.ay && b1.ay == b2.ax)
+//                            list.remove(j);
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    /**
+     * 判断复合块是否满足生成条件
+     * @param container 容器
+     * @param c  a和b复合生成的c
+     * @param a
+     * @param b
+     * @param boxList  用于装载的箱子清单
+     * @return boolean true则能生成c，否则不能生成c
+     */
+    private static boolean isComplexBlock(Container container, Block c, Block a, Block b, List<Box> boxList) {
+        double fillRate = (a.complexBlockRealVolume(boxList) + b.complexBlockRealVolume(boxList)) / c.volume();
         double areaRate = (c.ax * c.ay) / (c.lx * c.ly);
         //复合块大小不大于容器大小
         if (c.lx > container.lx || c.ly > container.ly || c.lz > container.lz)
