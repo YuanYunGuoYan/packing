@@ -1,7 +1,9 @@
 import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/11/07.
@@ -14,7 +16,7 @@ public class BasicHeuristic {
         List<Block> blockTable = new ArrayList<>();
         List<Plan> planList = new ArrayList<>();
 
-        if(searchParams<=0){
+        if (searchParams <= 0) {
             throw new Exception("请输入大于0的整数！");
         }
 
@@ -29,30 +31,46 @@ public class BasicHeuristic {
         ps[0].volume = 0;
         ps[0].spaceStack = null;
         ps[0].spaceStack.push(problem.container);
-//        ps.index=0;
+
         for (int i = 0; i < ps.length; i++) {
             while (ps[i].spaceStack != null) {
                 try {
-                    Container space = ps[i].spaceStack.pop();
-                    List<Block> blockList = new GenBlockList().genBlockList(space, ps[i].avail);
+                    Container space = ps[i].spaceStack.peek();
+                    List<Block> blockList = new GenBlockList().genBlockList(blockTable, space, ps[i].avail);
                     if (blockList != null) {
                         Block block = new FindNextBlock().findNextBlock(ps[i], blockList);
                         ps[i].spaceStack.pop();
-//                    ps.avail=ps.avail-block.getRequire();
-//                    ps.plan=ps.plan+(space,block);
-//                    ps.plan.volume=ps.plan.volume+block.complexBlockRealVolume();
-//                    ps.spaceStack.push(GenResidulSpace(space,block));
+
+                        //ps[i+1]的剩余箱子
+                        ps[i + 1].avail = ps[i].avail;
+                        HashMap<Integer, Integer> map = block.getRequire();
+                        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                            ps[i + 1].avail[entry.getKey()] = ps[i].avail[entry.getKey()] - entry.getValue();
+                        }
+
+                        //ps[i+1]的放置序列
+                        ps[i].plan.add(new Plan().setPlan(space, block));
+                        ps[i + 1].plan.addAll(ps[i].plan);
+
+                        //ps[i+1]的箱子总体积
+                        ps[i + 1].volume = ps[i].volume + block.complexBlockRealVolume(problem.boxList);
+
+                        //ps[i+1]划分未填充的空间并插入堆栈
+                        Container[] c = new GenResidulSpace().genResidulSpace(space, block);
+                        ps[i + 1].spaceStack.push(c[0]);
+                        ps[i + 1].spaceStack.push(c[1]);
+                        ps[i + 1].spaceStack.push(c[2]);
+
                     } else {
-//                    TransferSpace(space,ps.spaceStack);
+//                    new TransferSpace(space,ps[i].spaceStack);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-            planList.add(ps[i].plan);
+
         }
-        return planList;
+        return ps[searchParams].plan;
     }
 
 }

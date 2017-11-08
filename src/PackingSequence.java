@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/11/07.
  */
@@ -5,19 +7,10 @@
     ps[k]表示在第K装载阶段应选择的块号
  */
 public class PackingSequence {
-//    int index;
     int[] avail;        //各种剩余箱子的数目
-    Plan plan;              //一个放置
+    List<Plan> plan;         //一个放置列表
     SpaceStack spaceStack;   //剩余空间堆栈
     double volume;          //被装载箱子的总体积
-
-//    public int getIndex() {
-//        return index;
-//    }
-//
-//    public void setIndex(int index) {
-//        this.index = index;
-//    }
 
     public double getVolume() {
         return volume;
@@ -35,19 +28,19 @@ public class PackingSequence {
         this.avail = avail;
     }
 
-    public Plan getPlan() {
-        return plan;
-    }
-
-    public void setPlan(Plan plan) {
-        this.plan = plan;
-    }
-
     public SpaceStack getSpaceStack() {
         return spaceStack;
     }
 
     public void setSpaceStack(SpaceStack spaceStack) {
         this.spaceStack = spaceStack;
+    }
+
+    public List<Plan> getPlan() {
+        return plan;
+    }
+
+    public void setPlan(List<Plan> plan) {
+        this.plan = plan;
     }
 }

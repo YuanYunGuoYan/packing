@@ -13,6 +13,15 @@ public class Block {
     int level;                                                    //复杂度
     double ax;                                                    //可行放置矩形的长
     double ay;                                                    //可行放置矩形的宽
+    double x;
+    double y;
+    double z;
+
+    public void setCoordinatePoint(double x,double y,double z){
+        this.x=x;
+        this.y=y;
+        this.z=z;
+    }
 
     public HashMap<Integer, Integer> getRequire() {
         return require;

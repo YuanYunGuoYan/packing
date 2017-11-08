@@ -8,6 +8,12 @@ public class Plan {
     Container container;
     Block block;
 
+    public Plan setPlan(Container container, Block block) {
+        this.container = container;
+        this.block = block;
+        return this;
+    }
+
     public Container getContainer() {
         return container;
     }
