@@ -3,6 +3,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/11/07.
  */
+//problem包含容器、box列表以及可用箱子向量，形式化表示了一个装箱问题
 public class Problem {
     Container container;
     List<Box> boxList;
