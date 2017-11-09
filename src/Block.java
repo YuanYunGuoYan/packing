@@ -17,6 +17,7 @@ public class Block {
     double y;
     double z;
 
+    //设置Block的坐标点(x,y,z)
     public void setCoordinatePoint(double x,double y,double z){
         this.x=x;
         this.y=y;
@@ -87,7 +88,7 @@ public class Block {
         this.lz = lz;
     }
 
-    //复杂块实际体积，即所有箱子的体积之和
+    //块实际体积，即所有箱子的体积之和
     public double complexBlockRealVolume(List<Box> boxList) {
         HashMap<Integer, Integer> map = this.getRequire();
         double v = 0.0;
