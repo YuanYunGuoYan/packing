@@ -3,4 +3,8 @@
  */
 //是TransferSpace算法的逆过程，用于取消被加入的剩余空间以便进行搜索
 public class TransferSpaceBack {
+
+    public void transferSpaceBack(Container space, SpaceStack spaceStack) {
+
+    }
 }

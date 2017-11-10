@@ -392,15 +392,16 @@ public class ComplexBlock {
 
     /**
      * 判断复合块是否满足生成条件
+     *
      * @param container 容器
-     * @param c  a和b复合生成的c
+     * @param c         a和b复合生成的c
      * @param a
      * @param b
-     * @param boxList  用于装载的箱子清单
+     * @param boxList   用于装载的箱子清单
      * @return boolean true则能生成c，否则不能生成c
      */
     private static boolean isComplexBlock(Container container, Block c, Block a, Block b, List<Box> boxList) {
-        double fillRate = (a.complexBlockRealVolume(boxList) + b.complexBlockRealVolume(boxList)) / c.volume();
+        double fillRate = (a.realVolume(boxList) + b.realVolume(boxList)) / c.volume();
         double areaRate = (c.ax * c.ay) / (c.lx * c.ly);
         //复合块大小不大于容器大小
         if (c.lx > container.lx || c.ly > container.ly || c.lz > container.lz)

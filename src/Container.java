@@ -10,10 +10,10 @@ public class Container {
     double z;
 
     //设置Container的坐标点(x,y,z)
-    public void setCoordinatePoint(double x,double y,double z){
-        this.x=x;
-        this.y=y;
-        this.z=z;
+    public void setCoordinatePoint(double x, double y, double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     public Container setContainer(double lx, double ly, double lz) {

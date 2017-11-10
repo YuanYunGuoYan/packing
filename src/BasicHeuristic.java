@@ -12,7 +12,6 @@ public class BasicHeuristic {
 
     public List<Plan> basicHeuristic(boolean isComplex, int searchParams, Problem problem) throws Exception {
         List<Block> blockTable = new ArrayList<>();
-        List<Plan> planList = new ArrayList<>();
 
         if (searchParams <= 0) {
             throw new Exception("请输入大于0的整数！");
@@ -51,7 +50,7 @@ public class BasicHeuristic {
                         ps[i + 1].plan.addAll(ps[i].plan);
 
                         //ps[i+1]的箱子总体积
-                        ps[i + 1].volume = ps[i].volume + block.complexBlockRealVolume(problem.boxList);
+                        ps[i + 1].volume = ps[i].volume + block.realVolume(problem.boxList);
 
                         //ps[i+1]划分未填充的空间并插入堆栈
                         Container[] c = new GenResidulSpace().genResidulSpace(space, block);

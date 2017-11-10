@@ -18,10 +18,10 @@ public class Block {
     double z;
 
     //设置Block的坐标点(x,y,z)
-    public void setCoordinatePoint(double x,double y,double z){
-        this.x=x;
-        this.y=y;
-        this.z=z;
+    public void setCoordinatePoint(double x, double y, double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     public HashMap<Integer, Integer> getRequire() {
@@ -89,7 +89,7 @@ public class Block {
     }
 
     //块实际体积，即所有箱子的体积之和
-    public double complexBlockRealVolume(List<Box> boxList) {
+    public double realVolume(List<Box> boxList) {
         HashMap<Integer, Integer> map = this.getRequire();
         double v = 0.0;
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
