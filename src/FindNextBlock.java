@@ -17,7 +17,7 @@ public class FindNextBlock {
             for (Block b : blockList) {
                 Container space = ps.spaceStack.peek();
                 new PlaceBlock().placeBlock(ps, b);
-//                block.fitness=new MultiLayerSearch().multiLayerSearch(ps.depth,maxD,MaxHeap,effort);
+                block.fitness=new MultiLayerSearch().multiLayerSearch(ps.depth,maxD,MaxHeap,effort);
                 new RemoveBlock().removeBlock(ps, b, space);
             }
             Collections.sort(blockList, new SortByFitness());

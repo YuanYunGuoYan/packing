@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Map;
 //块装载算法
 public class PlaceBlock {
 
-    public void placeBlock(PackingSequence ps, Block block) throws Exception {
+    public void placeBlock(List<Box> boxList, PackingSequence ps, Block block) throws Exception {
         Container space = ps.spaceStack.peek();
 
         //移除栈顶空间
@@ -23,7 +24,7 @@ public class PlaceBlock {
         ps.plan.add(new Plan().setPlan(space, block));
 
         //ps的箱子总体积
-        ps.volume = ps.volume + block.realVolume();
+        ps.volume = ps.volume + block.realVolume(boxList);
 
         //ps划分未填充的空间并加入到剩余空间堆栈中
         Container[] c = new GenResidulSpace().genResidulSpace(space, block);

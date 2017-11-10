@@ -10,6 +10,9 @@ public class Plan {
     public Plan setPlan(Container container, Block block) {
         this.container = container;
         this.block = block;
+        container.x = block.x;
+        container.y = block.y;
+        container.z = block.z;
         return this;
     }
 

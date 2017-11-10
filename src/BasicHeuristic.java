@@ -13,61 +13,59 @@ public class BasicHeuristic {
     public List<Plan> basicHeuristic(boolean isComplex, int searchParams, Problem problem) throws Exception {
         List<Block> blockTable = new ArrayList<>();
 
-        if (searchParams <= 0) {
-            throw new Exception("请输入大于0的整数！");
-        }
+//        if (searchParams <= 0) {
+//            throw new Exception("请输入大于0的整数！");
+//        }
 
-        PackingSequence[] ps = new PackingSequence[searchParams];
+        PackingSequence ps = new PackingSequence();
         if (isComplex)
             blockTable = new ComplexBlock().genComplexBlock(problem.container, problem.boxList, problem.num);
         else
             blockTable = new SimpleBlock().genSimpleBlock(problem.container, problem.boxList, problem.num);
 
-        ps[0].avail = problem.num;
-        ps[0].plan = null;
-        ps[0].volume = 0;
-        ps[0].spaceStack = null;
-        ps[0].spaceStack.push(problem.container);
+        ps.avail = new int[problem.num.length];
+        System.arraycopy(ps.avail, 0, problem.num, 0, problem.num.length);
+        ps.plan = null;
+        ps.volume = 0;
+        ps.spaceStack = null;
+        ps.spaceStack.push(problem.container);
 
-        for (int i = 0; i < ps.length; i++) {
-            while (ps[i].spaceStack != null) {
-                try {
-                    Container space = ps[i].spaceStack.peek();
-                    List<Block> blockList = new GenBlockList().genBlockList(blockTable, space, ps[i].avail);
-                    if (blockList != null) {
-                        Block block = new FindNextBlock().findNextBlock(ps[i], blockList);
-                        ps[i].spaceStack.pop();
+        while (ps.spaceStack != null) {
+            try {
+                Container space = ps.spaceStack.peek();
+                List<Block> blockList = new GenBlockList().genBlockList(blockTable, space, ps.avail);
+                if (blockList != null) {
+                    Block block = new FindNextBlock().findNextBlock(ps, blockList);
+//                    block.setNO();
+                    ps.spaceStack.pop();
 
-                        //ps[i+1]的剩余箱子
-                        ps[i + 1].avail = ps[i].avail;
-                        HashMap<Integer, Integer> map = block.getRequire();
-                        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-                            ps[i + 1].avail[entry.getKey()] = ps[i].avail[entry.getKey()] - entry.getValue();
-                        }
-
-                        //ps[i+1]的放置序列
-                        ps[i].plan.add(new Plan().setPlan(space, block));
-                        ps[i + 1].plan.addAll(ps[i].plan);
-
-                        //ps[i+1]的箱子总体积
-                        ps[i + 1].volume = ps[i].volume + block.realVolume(problem.boxList);
-
-                        //ps[i+1]划分未填充的空间并插入堆栈
-                        Container[] c = new GenResidulSpace().genResidulSpace(space, block);
-                        ps[i + 1].spaceStack.push(c[0]);
-                        ps[i + 1].spaceStack.push(c[1]);
-                        ps[i + 1].spaceStack.push(c[2]);
-
-                    } else {
-//                    new TransferSpace(space,ps[i].spaceStack);
+                    //ps的剩余箱子
+                    HashMap<Integer, Integer> map = block.getRequire();
+                    for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                        ps.avail[entry.getKey()] = ps.avail[entry.getKey()] - entry.getValue();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
 
+                    //ps的放置序列
+                    ps.plan.add(new Plan().setPlan(space, block));
+
+                    //ps的箱子总体积
+                    ps.volume = ps.volume + block.realVolume(problem.boxList);
+
+                    //ps[i+1]划分未填充的空间并插入堆栈
+                    Container[] c = new GenResidulSpace().genResidulSpace(space, block);
+                    ps.spaceStack.push(c[0]);
+                    ps.spaceStack.push(c[1]);
+                    ps.spaceStack.push(c[2]);
+
+                } else {
+                    new TransferSpace().transferSpace(space, ps.spaceStack);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        return ps[searchParams].plan;
+
+        return ps.plan;
     }
 
 }

@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -6,7 +7,7 @@ import java.util.Map;
  */
 //块移除算法
 public class RemoveBlock {
-    public void removeBlock(PackingSequence ps, Block block, Container space) throws Exception {
+    public void removeBlock(List<Box> boxList,PackingSequence ps, Block block, Container space) throws Exception {
 
         //恢复已使用的箱子
         HashMap<Integer, Integer> map = block.getRequire();
@@ -18,7 +19,7 @@ public class RemoveBlock {
         ps.plan.remove(new Plan().setPlan(space, block));
 
         //ps的箱子总体积
-        ps.volume = ps.volume - block.realVolume();
+        ps.volume = ps.volume - block.realVolume(boxList);
 
         //移除空间堆栈栈顶的3个划分出来的剩余空间，并将已使用剩余空间重新插入栈顶
         ps.spaceStack.pop();

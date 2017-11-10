@@ -6,20 +6,20 @@ import java.util.List;
  */
 //改进的带深度限制的深度优先搜索算法
 public class DepthFirstSearch {
-    public void depthFirstSearch(PackingSequence ps, int depth, int branch, int layer) throws Exception {
+    public void depthFirstSearch(List<Block> blockTable,PackingSequence ps, int depth, int branch, int layer) throws Exception {
         if (depth != 0) {
             Container space = ps.spaceStack.peek();
             List<Block> blockList = new ArrayList<>();
-            blockList = new GenBlockList().genBlockList(ps, space, ps.avail);
+            blockList = new GenBlockList().genBlockList(blockTable, space, ps.avail);
             if (blockList != null) {
                 for (int i = 0; i < branch - 1; i++) {
                     new PlaceBlock().placeBlock(ps, blockList.get(i));
-                    depthFirstSearch(ps, depth - 1, branch, layer);
+                    depthFirstSearch(blockTable,ps, depth - 1, branch, layer);
                     new RemoveBlock().removeBlock(ps, blockList.get(i), space);
                 }
             } else {
                 new TransferSpace().transferSpace(space, ps.spaceStack);
-                depthFirstSearch(ps, depth, branch, layer);
+                depthFirstSearch(blockTable,ps, depth, branch, layer);
                 new TransferSpaceBack().transferSpaceBack(space, ps.spaceStack);
             }
         } else {

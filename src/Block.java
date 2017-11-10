@@ -16,6 +16,24 @@ public class Block {
     double x;
     double y;
     double z;
+    int fitness;
+    int NO;                                                        //块的编号
+
+    public int getNO() {
+        return NO;
+    }
+
+    public void setNO(int NO) {
+        this.NO = NO;
+    }
+
+    public int getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(int fitness) {
+        this.fitness = fitness;
+    }
 
     //设置Block的坐标点(x,y,z)
     public void setCoordinatePoint(double x, double y, double z) {
