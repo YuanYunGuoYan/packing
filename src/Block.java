@@ -16,7 +16,7 @@ public class Block {
     double x;
     double y;
     double z;
-    int fitness;
+    double fitness;                                                   //块的适应度
     int NO;                                                        //块的编号
 
     public int getNO() {
@@ -27,11 +27,11 @@ public class Block {
         this.NO = NO;
     }
 
-    public int getFitness() {
+    public double getFitness() {
         return fitness;
     }
 
-    public void setFitness(int fitness) {
+    public void setFitness(double fitness) {
         this.fitness = fitness;
     }
 

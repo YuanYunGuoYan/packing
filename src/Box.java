@@ -14,10 +14,10 @@ public class Box {
 //    int WX, WY, WZ = 0;
 //    int HX, HY, HZ = 0;
 
-    public Box setBox(double lx,double ly,double lz){
-        this.lx=lx;
-        this.ly=ly;
-        this.lz=lz;
+    public Box setBox(double lx, double ly, double lz) {
+        this.lx = lx;
+        this.ly = ly;
+        this.lz = lz;
         return this;
     }
 
@@ -83,78 +83,6 @@ public class Box {
 //        return this;
 //    }
 
-//    public int getLX() {
-//        return LX;
-//    }
-//
-//    public void setLX(int LX) {
-//        this.LX = LX;
-//    }
-//
-//    public int getLY() {
-//        return LY;
-//    }
-//
-//    public void setLY(int LY) {
-//        this.LY = LY;
-//    }
-//
-//    public int getLZ() {
-//        return LZ;
-//    }
-//
-//    public void setLZ(int LZ) {
-//        this.LZ = LZ;
-//    }
-//
-//    public int getWX() {
-//        return WX;
-//    }
-//
-//    public void setWX(int WX) {
-//        this.WX = WX;
-//    }
-//
-//    public int getWY() {
-//        return WY;
-//    }
-//
-//    public void setWY(int WY) {
-//        this.WY = WY;
-//    }
-//
-//    public int getWZ() {
-//        return WZ;
-//    }
-//
-//    public void setWZ(int WZ) {
-//        this.WZ = WZ;
-//    }
-//
-//    public int getHX() {
-//        return HX;
-//    }
-//
-//    public void setHX(int HX) {
-//        this.HX = HX;
-//    }
-//
-//    public int getHY() {
-//        return HY;
-//    }
-//
-//    public void setHY(int HY) {
-//        this.HY = HY;
-//    }
-//
-//    public int getHZ() {
-//        return HZ;
-//    }
-//
-//    public void setHZ(int HZ) {
-//        this.HZ = HZ;
-//    }
-
     public int getNO() {
         return NO;
     }
@@ -162,30 +90,6 @@ public class Box {
     public void setNO(int NO) {
         this.NO = NO;
     }
-
-//    public double getL() {
-//        return L;
-//    }
-//
-//    public void setL(double l) {
-//        L = l;
-//    }
-//
-//    public double getW() {
-//        return W;
-//    }
-//
-//    public void setW(double w) {
-//        W = w;
-//    }
-//
-//    public double getH() {
-//        return H;
-//    }
-//
-//    public void setH(double h) {
-//        H = h;
-//    }
 
     public double volume() {
         return this.lx * this.ly * this.lz;

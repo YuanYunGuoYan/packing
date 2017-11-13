@@ -10,9 +10,10 @@ public class Plan {
     public Plan setPlan(Container container, Block block) {
         this.container = container;
         this.block = block;
-        container.x = block.x;
-        container.y = block.y;
-        container.z = block.z;
+        //块的参考点和剩余空间的参考点重合
+        block.x = container.x;
+        block.y = container.y;
+        block.z = container.z;
         return this;
     }
 

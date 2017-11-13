@@ -8,6 +8,24 @@ public class Container {
     double x;
     double y;
     double z;
+    int n;              //容器第几次切割
+    String cutway;      //容器被切割的方式
+
+    public String getCutway() {
+        return cutway;
+    }
+
+    public void setCutway(String cutway) {
+        this.cutway = cutway;
+    }
+
+    public int getN() {
+        return n;
+    }
+
+    public void setN(int n) {
+        this.n = n;
+    }
 
     //设置Container的坐标点(x,y,z)
     public void setCoordinatePoint(double x, double y, double z) {

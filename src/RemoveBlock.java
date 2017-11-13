@@ -7,7 +7,7 @@ import java.util.Map;
  */
 //块移除算法
 public class RemoveBlock {
-    public void removeBlock(List<Box> boxList,PackingSequence ps, Block block, Container space) throws Exception {
+    public void removeBlock(List<Box> boxList, PackingSequence ps, Block block, Container space) throws Exception {
 
         //恢复已使用的箱子
         HashMap<Integer, Integer> map = block.getRequire();

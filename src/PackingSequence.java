@@ -11,6 +11,7 @@ public class PackingSequence {
     List<Plan> plan;         //一个放置列表
     SpaceStack spaceStack;   //剩余空间堆栈
     double volume;          //被装载箱子的总体积
+    int depth;              //深度
 
     public double getVolume() {
         return volume;

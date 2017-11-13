@@ -10,7 +10,7 @@ public class SortByFitness implements Comparator {
         Block b1 = (Block) o1;
         Block b2 = (Block) o2;
 
-        if (b1.fitness> b2.fitness)
+        if (b1.fitness > b2.fitness)
             return -1;
 
         return 1;
