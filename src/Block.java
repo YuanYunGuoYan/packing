@@ -19,6 +19,50 @@ public class Block {
     double fitness;                                                   //块的适应度
     int NO;                                                        //块的编号
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Block block = (Block) o;
+
+        if (Double.compare(block.lx, lx) != 0) return false;
+        if (Double.compare(block.ly, ly) != 0) return false;
+        if (Double.compare(block.lz, lz) != 0) return false;
+        if (level != block.level) return false;
+        if (Double.compare(block.ax, ax) != 0) return false;
+        if (Double.compare(block.ay, ay) != 0) return false;
+        if (Double.compare(block.x, x) != 0) return false;
+        if (Double.compare(block.y, y) != 0) return false;
+        if (Double.compare(block.z, z) != 0) return false;
+        return require != null ? require.equals(block.require) : block.require == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(lx);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(ly);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(lz);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (require != null ? require.hashCode() : 0);
+        result = 31 * result + level;
+        temp = Double.doubleToLongBits(ax);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(ay);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(x);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(y);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(z);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
     public int getNO() {
         return NO;
     }

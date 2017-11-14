@@ -23,11 +23,11 @@ public class TransferSpace {
             if (space.n == space1.n && space.n == space2.n) {
                 if (space.cutway.equals("Y")) {
 //                    transfer.setContainer(space1.lx, space.ly, space.lz);
-                    space1.setContainer(space1.lx, space.ly + space1.ly, space.lz);
+                    space1.ly=space.ly+space1.ly;
                     spaceStack.push(space1);
                 } else if (space.cutway.equals("X")) {
 //                    transfer.setContainer(space.lx, space1.ly, space.lz);
-                    space1.setContainer(space.lx + space1.lx, space1.ly, space.lz);
+                    space1.lx=space.lx+space1.lx;
                     spaceStack.push(space1);
                 }
             }

@@ -14,10 +14,11 @@ public class Box {
 //    int WX, WY, WZ = 0;
 //    int HX, HY, HZ = 0;
 
-    public Box setBox(double lx, double ly, double lz) {
+    public Box setBox(double lx, double ly, double lz,int type) {
         this.lx = lx;
         this.ly = ly;
         this.lz = lz;
+        this.type=type;
         return this;
     }
 

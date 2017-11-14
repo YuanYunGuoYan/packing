@@ -11,9 +11,9 @@ public class Plan {
         this.container = container;
         this.block = block;
         //块的参考点和剩余空间的参考点重合
-        block.x = container.x;
-        block.y = container.y;
-        block.z = container.z;
+        this.block.x = this.container.x;
+        this.block.y = this.container.y;
+        this.block.z = this.container.z;
         return this;
     }
 

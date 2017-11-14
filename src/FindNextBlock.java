@@ -15,6 +15,7 @@ public class FindNextBlock {
 
     public Block findNextBlock(List<Box> boxList, List<Block> blockTable, PackingSequence ps, List<Block> blockList) throws Exception {
         Block block = new Block();
+        double maximum=0;
         for (int depth = 1; depth < MaxDepth; depth++) {
             for (Block b : blockList) {
                 Container space = ps.spaceStack.peek();
@@ -25,27 +26,21 @@ public class FindNextBlock {
             Collections.sort(blockList, new SortByFitness());
             if (blockList.size() > 2 * N) {
                 //保留blockList的前一半
-                List<Block> newBlockList = new ArrayList<>();
                 int num;
                 if (blockList.size() % 2 == 0) {
                     num = (blockList.size() / 2) - 1;
                 } else {
                     num = blockList.size() / 2;
                 }
-                newBlockList = blockList.subList(0, num);
-                blockList.clear();
-                blockList.addAll(newBlockList);
-            } else {
+                blockList = blockList.subList(0, num);
+            } else if (blockList.size() > N) {
                 //保留blockList的前面N个数据
-                List<Block> newBlockList = new ArrayList<>();
-                newBlockList = blockList.subList(0, N - 1);
-                blockList.clear();
-                blockList.addAll(newBlockList);
+                blockList = blockList.subList(0, N - 1);
             }
         }
 
         //返回最大适应度的块
-        block = blockList.get(0);
+        block=blockList.get(0);
         return block;
     }
 }

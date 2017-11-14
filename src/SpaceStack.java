@@ -5,89 +5,77 @@
 
 //SpaceStack表示剩余空间堆栈
 public class SpaceStack {
-    Container[] data;
+    /**
+     * 栈的最大深度
+     **/
+    protected int MAX_DEPTH = 100000;
 
-    int maxSize;
+    /**
+     * 栈的当前深度
+     */
+    protected int depth = 0;
 
-    //栈顶位置
-    int top;
+    /**
+     * 实际的栈
+     */
+    protected Container[] stack = new Container[MAX_DEPTH];
 
-    public SpaceStack(int maxSize) {
-        this.maxSize = maxSize;
-        data = new Container[maxSize];
-        top = -1;
+    /**
+     * push，向栈中添加一个元素
+     *
+     * @param n 待添加的元素
+     */
+    protected void push(Container n) {
+        if (depth == MAX_DEPTH - 1) {
+            throw new RuntimeException("栈已满，无法再添加元素。");
+        }
+        stack[depth++] = n;
     }
 
     /**
-     * 获取堆栈长度
+     * pop，返回栈顶元素并从栈中删除
      *
-     * @return 堆栈长度
+     * @return 栈顶元素
      */
-    public int getSize() {
-        return maxSize;
+    protected Container pop() {
+        if (depth == 0) {
+            throw new RuntimeException("栈中元素已经被取完，无法再取。");
+        }
+        Container result = stack[--depth];
+        stack[depth] = null;
+        return result;
     }
 
     /**
-     * 返回栈中元素的个数
+     * peek，返回栈顶元素但不从栈中删除
      *
-     * @return 栈中元素的个数
+     * @return
      */
-    public int getElementCount() {
-        return top;
+    protected Container peek() {
+        if (depth == 0) {
+            throw new RuntimeException("栈中元素已经被取完，无法再取。");
+        }
+        return stack[depth - 1];
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return stack.toString();
     }
 
     /**
      * 判断栈空
-     *
-     * @return 栈空
      */
     public boolean isEmpty() {
-        return top == -1;
+        return this.depth == 0;
     }
 
     /**
-     * 判断栈满
-     *
-     * @return 栈满
+     * 判断栈溢
      */
     public boolean isFull() {
-        return top + 1 == maxSize;
-    }
-
-    /**
-     * 依次加入数据
-     *
-     * @param data 要加入的数据通信
-     * @return 添加是否成功
-     */
-    public boolean push(Container data) {
-        if (isFull()) {
-            System.out.println("栈已满!");
-            return false;
-        }
-        this.data[++top] = data;
-        return true;
-    }
-
-    /**
-     * 从栈中取出数据
-     *
-     * @return 取出的数据
-     */
-    public Container pop() throws Exception {
-        if (isEmpty()) {
-            throw new Exception("栈已空!");
-        }
-        return this.data[top--];
-    }
-
-    /**
-     * 返回栈顶元素
-     *
-     * @return
-     */
-    public Container peek() {
-        return this.data[getElementCount()];
+        return this.depth + 1 == this.MAX_DEPTH;
     }
 
 }

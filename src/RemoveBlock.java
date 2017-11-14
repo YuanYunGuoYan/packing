@@ -16,7 +16,13 @@ public class RemoveBlock {
         }
 
         //从当前部分装载方案中移除当前所属的装载
-        ps.plan.remove(new Plan().setPlan(space, block));
+        for (int i = 0, len = ps.plan.size(); i < len; ++i) {
+            if (ps.plan.get(i).block.equals(block) && ps.plan.get(i).container.equals(space)) {
+                ps.plan.remove(i);
+                --len;
+                --i;
+            }
+        }
 
         //ps的箱子总体积
         ps.volume = ps.volume - block.realVolume(boxList);

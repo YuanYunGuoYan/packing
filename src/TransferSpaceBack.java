@@ -22,15 +22,13 @@ public class TransferSpaceBack {
             if (space.n == space1.n && space.n == space2.n) {
                 if (space.cutway.equals("Y")) {
 //                    transfer.setContainer(space1.lx, space.ly, space.lz);
-                    space1.setContainer(space1.lx, space1.ly - space.ly, space.lz);
-                    spaceStack.push(space1);
-                    spaceStack.push(space);
+                    space1.ly=space1.ly-space.ly;
                 } else if (space.cutway.equals("X")) {
 //                    transfer.setContainer(space.lx, space1.ly, space.lz);
-                    space1.setContainer(space1.lx - space.lx, space1.ly, space.lz);
-                    spaceStack.push(space1);
-                    spaceStack.push(space);
+                    space1.lx=space1.lx-space.lx;
                 }
+                spaceStack.push(space1);
+                spaceStack.push(space);
             }
         }
     }

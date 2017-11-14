@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,29 +11,32 @@ import java.util.List;
 public class MultiLayerSearch {
     public double multiLayerSearch(List<Box> boxList, List<Block> blockTable, PackingSequence ps, int depth, int maxD, int MaxHeap, int effort) throws Exception {
         double maximum = 0;
-        List<PackingSequence>[] heap = new List[depth];
+        HashMap<Integer,List<PackingSequence>> heap=new HashMap<>();
 //        result.volumeComplete=0;
-        heap[0].add(ps);
+        List<PackingSequence> psList=new ArrayList<>();
+        psList.add(ps);
+        heap.put(0,psList);
         for (int layer = 0; layer < depth - 1; layer++) {
-//            keep heap[layer] containing only the best MaxHeap elements
-            if (heap[layer].size() > MaxHeap) {
-                Collections.sort(heap[layer], new SortByPs());
-                List<PackingSequence> newPsList = new ArrayList<>();
-                newPsList = heap[layer].subList(0, MaxHeap - 1);
-                heap[layer].clear();
-                heap[layer].addAll(newPsList);
+            List<PackingSequence> layerList=heap.get(layer);
+
+            //keep heap[layer] containing only the best MaxHeap elements
+            if (layerList.size() > MaxHeap) {
+                Collections.sort(layerList, new SortByPs());
+                layerList = layerList.subList(0, MaxHeap - 1);
             }
-            for (PackingSequence newps : heap[layer]) {
+
+            for (PackingSequence newps : layerList) {
                 for (int d = 1; d < maxD; d++) {
                     int branch = getMaxB(d, effort);
-                    new DepthFirstSearch().depthFirstSearch(boxList, blockTable, newps, d, branch, layer + d, heap[layer + d]);
+                    new DepthFirstSearch().depthFirstSearch(boxList, blockTable, newps, d, branch, layer + d, heap.get(layer+d));
                 }
             }
         }
 
         //return the maximun in heap[depth]
-        for (int i = 0; i < heap[depth].size() - 1; i++) {
-            PackingSequence maxps = heap[depth].get(i);
+        List<PackingSequence> maxList=heap.get(depth);
+        for (int i = 0; i < maxList.size() - 1; i++) {
+            PackingSequence maxps = maxList.get(i);
             if (maxps.volume > maximum) {
                 maximum = maxps.volume;
             }

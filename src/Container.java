@@ -11,6 +11,44 @@ public class Container {
     int n;              //容器第几次切割
     String cutway;      //容器被切割的方式
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Container container = (Container) o;
+
+        if (Double.compare(container.lx, lx) != 0) return false;
+        if (Double.compare(container.ly, ly) != 0) return false;
+        if (Double.compare(container.lz, lz) != 0) return false;
+        if (Double.compare(container.x, x) != 0) return false;
+        if (Double.compare(container.y, y) != 0) return false;
+        if (Double.compare(container.z, z) != 0) return false;
+        if (n != container.n) return false;
+        return cutway != null ? cutway.equals(container.cutway) : container.cutway == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(lx);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(ly);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(lz);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(x);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(y);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(z);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + n;
+        result = 31 * result + (cutway != null ? cutway.hashCode() : 0);
+        return result;
+    }
+
     public String getCutway() {
         return cutway;
     }
